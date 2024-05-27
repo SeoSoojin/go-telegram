@@ -8,31 +8,33 @@ import (
 	"github.com/seosoojin/go-telegram/telegram"
 )
 
-type Client interface {
+type Server interface {
+	Route(name string, command Command)
+	Run(port string) error
 }
 
-type client struct {
+type server struct {
 	tgClient telegram.Client
 	manager  *Manager
 }
 
-func NewServer(tgClient telegram.Client) Client {
-	return &client{
+func NewServer(tgClient telegram.Client) Server {
+	return &server{
 		tgClient: tgClient,
 		manager:  NewManager(),
 	}
 }
 
-func (c *client) Route(name string, command Command) {
-	c.manager.AddCommand(name, command)
+func (s *server) Route(name string, command Command) {
+	s.manager.AddCommand(name, command)
 }
 
-func (c *client) Run(port string) error {
-	http.HandleFunc("/webhook", c.handler)
+func (s *server) Run(port string) error {
+	http.HandleFunc("/webhook", s.handler)
 	return http.ListenAndServe(":"+port, nil)
 }
 
-func (c *client) handler(w http.ResponseWriter, r *http.Request) {
+func (s *server) handler(w http.ResponseWriter, r *http.Request) {
 
 	b, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -55,13 +57,13 @@ func (c *client) handler(w http.ResponseWriter, r *http.Request) {
 	commandName := strings.Split(event.Message.Text, "@")[0]
 	args := commandParts[1:]
 
-	command := c.manager.GetCommand(commandName)
+	command := s.manager.GetCommand(commandName)
 	if command == nil {
 		http.Error(w, "command not found", http.StatusNotFound)
 		return
 	}
 
-	err = command(r.Context(), c.tgClient, event, args...)
+	err = command(r.Context(), s.tgClient, event, args...)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
