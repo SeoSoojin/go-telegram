@@ -61,6 +61,10 @@ func (c *client) SendMessage(message RequestMessage) (Message, error) {
 
 	defer httpResp.Body.Close()
 
+	if httpResp.StatusCode != http.StatusOK {
+		return *resp, fmt.Errorf("unexpected status code: %d", httpResp.StatusCode)
+	}
+
 	b, err = io.ReadAll(httpResp.Body)
 	if err != nil {
 		return *resp, err
