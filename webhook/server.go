@@ -12,11 +12,11 @@ type Client interface {
 }
 
 type client struct {
-	tgClient *telegram.Client
+	tgClient telegram.Client
 	manager  *Manager
 }
 
-func NewClient(tgClient *telegram.Client) Client {
+func NewServer(tgClient telegram.Client) Client {
 	return &client{
 		tgClient: tgClient,
 		manager:  NewManager(),

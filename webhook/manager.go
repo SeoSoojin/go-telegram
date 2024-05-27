@@ -6,7 +6,7 @@ import (
 	"github.com/seosoojin/go-telegram/telegram"
 )
 
-type Command func(ctx context.Context, client *telegram.Client, event *telegram.Event, args ...string) error
+type Command func(ctx context.Context, client telegram.Client, event *telegram.Event, args ...string) error
 
 type Manager struct {
 	commands map[string]Command
