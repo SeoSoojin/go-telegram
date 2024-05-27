@@ -1,6 +1,7 @@
 package webhook
 
 import (
+	"context"
 	"io"
 	"net/http"
 	"strings"
@@ -9,7 +10,7 @@ import (
 )
 
 type Server interface {
-	Route(name string, command Command)
+	Route(name string, command func(ctx context.Context, client telegram.Client, event *telegram.Event, args ...string) error)
 	Run(port string) error
 }
 
@@ -25,7 +26,7 @@ func NewServer(tgClient telegram.Client) Server {
 	}
 }
 
-func (s *server) Route(name string, command Command) {
+func (s *server) Route(name string, command func(ctx context.Context, client telegram.Client, event *telegram.Event, args ...string) error) {
 	s.manager.AddCommand(name, command)
 }
 
