@@ -5,7 +5,7 @@ type RequestMessage struct {
 	Text                string          `json:"text"`
 	Entities            []MessageEntity `json:"entities"`
 	ReplyParametes      ReplyParametes  `json:"reply_parametes"`
-	ReplyMarkup         InlineKeyboard  `json:"reply_markup"`
+	ReplyMarkup         ReplyMarkup     `json:"reply_markup"`
 	ParseMode           ParseMode       `json:"parse_mode"`
 	DisableNotification bool            `json:"disable_notification"`
 	ProtectContent      bool            `json:"protect_content"`
@@ -24,6 +24,9 @@ type MessageEntity struct {
 	Length int    `json:"length"`
 }
 
+type ReplyMarkup struct {
+	InlineKeyboard [][]InlineKeyboard `json:"inline_keyboard"`
+}
 type InlineKeyboard struct {
 	Text                         string `json:"text"`
 	URL                          string `json:"url"`
