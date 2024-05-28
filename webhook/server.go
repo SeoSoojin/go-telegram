@@ -38,6 +38,12 @@ func (s *server) Route(name string, command Command, opts ...RouteOptions) {
 		}
 	}
 
+	if len(routeOpts.aliases) > 0 {
+		for _, alias := range routeOpts.aliases {
+			s.manager.AddCommand(alias, command)
+		}
+	}
+
 	s.manager.AddCommand(name, command)
 }
 

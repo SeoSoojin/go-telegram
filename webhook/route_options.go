@@ -4,6 +4,7 @@ type RouteOptions func(*routeOptions)
 
 type routeOptions struct {
 	callbacks map[string]Command
+	aliases   []string
 }
 
 func WithCallbacks(callbacks map[string]Command) RouteOptions {
@@ -15,6 +16,12 @@ func WithCallbacks(callbacks map[string]Command) RouteOptions {
 func WithCallback(name string, callback Command) RouteOptions {
 	return func(o *routeOptions) {
 		o.callbacks[name] = callback
+	}
+}
+
+func WithAliases(aliases ...string) RouteOptions {
+	return func(o *routeOptions) {
+		o.aliases = aliases
 	}
 }
 
