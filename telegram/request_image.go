@@ -5,7 +5,7 @@ type RequestPhoto struct {
 	Photo          string         `json:"photo"`
 	Caption        string         `json:"caption"`
 	ReplyParametes ReplyParametes `json:"reply_parametes"`
-	ReplyMarkup    ReplyMarkup    `json:"reply_markup"`
+	ReplyMarkup    *ReplyMarkup   `json:"reply_markup"`
 	ParseMode      ParseMode      `json:"parse_mode"`
 }
 
@@ -14,6 +14,6 @@ type RequestAnimation struct {
 	Animation      string         `json:"animation"`
 	Caption        string         `json:"caption"`
 	ReplyParametes ReplyParametes `json:"reply_parametes"`
-	ReplyMarkup    ReplyMarkup    `json:"reply_markup"`
+	ReplyMarkup    *ReplyMarkup   `json:"reply_markup"`
 	ParseMode      ParseMode      `json:"parse_mode"`
 }
