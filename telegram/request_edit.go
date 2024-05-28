@@ -1,18 +1,18 @@
 package telegram
 
 type RequestEditCaption struct {
-	ChatID      int         `json:"chat_id"`
-	MessageID   int         `json:"message_id"`
-	Caption     string      `json:"caption"`
-	ParseMode   ParseMode   `json:"parse_mode"`
-	ReplyMarkup ReplyMarkup `json:"reply_markup"`
+	ChatID      int          `json:"chat_id"`
+	MessageID   int          `json:"message_id"`
+	Caption     string       `json:"caption"`
+	ParseMode   ParseMode    `json:"parse_mode"`
+	ReplyMarkup *ReplyMarkup `json:"reply_markup,omitempty"`
 }
 
 type RequestEditMedia struct {
-	ChatID      int         `json:"chat_id"`
-	MessageID   int         `json:"message_id"`
-	Media       InputMedia  `json:"media"`
-	ReplyMarkup ReplyMarkup `json:"reply_markup"`
+	ChatID      int          `json:"chat_id"`
+	MessageID   int          `json:"message_id"`
+	Media       InputMedia   `json:"media"`
+	ReplyMarkup *ReplyMarkup `json:"reply_markup,omitempty"`
 }
 
 type InputMedia struct {
@@ -20,5 +20,5 @@ type InputMedia struct {
 	Media       string      `json:"media"`
 	Caption     string      `json:"caption"`
 	ParseMode   ParseMode   `json:"parse_mode"`
-	ReplyMarkup ReplyMarkup `json:"reply_markup"`
+	ReplyMarkup ReplyMarkup `json:"reply_markup,omitempty"`
 }

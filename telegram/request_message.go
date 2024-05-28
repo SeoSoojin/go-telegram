@@ -5,7 +5,7 @@ type RequestMessage struct {
 	Text                string          `json:"text"`
 	Entities            []MessageEntity `json:"entities"`
 	ReplyParametes      ReplyParametes  `json:"reply_parametes"`
-	ReplyMarkup         *ReplyMarkup    `json:"reply_markup"`
+	ReplyMarkup         *ReplyMarkup    `json:"reply_markup,omitempty"`
 	ParseMode           ParseMode       `json:"parse_mode"`
 	DisableNotification bool            `json:"disable_notification"`
 	ProtectContent      bool            `json:"protect_content"`
