@@ -73,7 +73,7 @@ func (s *server) handler(w http.ResponseWriter, r *http.Request) {
 
 func (s *server) handleCallback(ctx context.Context, event *telegram.Event, w http.ResponseWriter) {
 
-	commandParts := strings.Split(event.Message.Text, " ")
+	commandParts := strings.Split(event.CallbackQuery.Data, " ")
 	if len(commandParts) == 0 {
 		ErrorHandler(ctx, s.tgClient, event, ErrNotFound)
 		return
