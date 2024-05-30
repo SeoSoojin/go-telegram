@@ -72,7 +72,7 @@ func (s *server) handler(w http.ResponseWriter, r *http.Request) {
 	case event.CallbackQuery != nil:
 		s.handleCallback(r.Context(), event, w)
 	default:
-		ErrorHandler(r.Context(), s.tgClient, event, ErrNotFound)
+		return
 	}
 
 }
