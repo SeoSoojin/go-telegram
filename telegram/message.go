@@ -10,6 +10,7 @@ type Message struct {
 	Caption         string          `json:"caption"`
 	CaptionEntities []CaptionEntity `json:"caption_entities"`
 	ReplyMarkup     ReplyMarkup     `json:"reply_markup"`
+	ReplyToMessage  *Message        `json:"reply_to_message"`
 }
 
 type From struct {
