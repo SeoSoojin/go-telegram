@@ -81,7 +81,6 @@ func (s *server) handleCallback(ctx context.Context, event *telegram.Event, w ht
 
 	commandParts := strings.Split(event.CallbackQuery.Data, " ")
 	if len(commandParts) == 0 {
-		ErrorHandler(ctx, s.tgClient, event, ErrNotFound)
 		return
 	}
 
@@ -90,13 +89,11 @@ func (s *server) handleCallback(ctx context.Context, event *telegram.Event, w ht
 
 	command := s.callbackManager.GetCommand(commandName)
 	if command == nil {
-		ErrorHandler(ctx, s.tgClient, event, ErrNotFound)
 		return
 	}
 
 	err := command(ctx, s.tgClient, event, args...)
 	if err != nil {
-		ErrorHandler(ctx, s.tgClient, event, err)
 		return
 	}
 
@@ -107,7 +104,6 @@ func (s *server) handleCommand(ctx context.Context, event *telegram.Event, w htt
 
 	commandParts := strings.Split(event.Message.Text, " ")
 	if len(commandParts) == 0 {
-		ErrorHandler(ctx, s.tgClient, event, ErrNotFound)
 		return
 	}
 
@@ -116,7 +112,6 @@ func (s *server) handleCommand(ctx context.Context, event *telegram.Event, w htt
 
 	command := s.manager.GetCommand(commandName)
 	if command == nil {
-		ErrorHandler(ctx, s.tgClient, event, ErrNotFound)
 		return
 	}
 
