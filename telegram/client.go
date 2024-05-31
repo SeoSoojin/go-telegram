@@ -10,11 +10,11 @@ import (
 )
 
 type Client interface {
-	SendMessage(req RequestMessage) (Message, error)
-	SendPhoto(req RequestPhoto) (Message, error)
-	SendAnimation(req RequestAnimation) (Message, error)
-	EditMessageCaption(req RequestEditCaption) (Message, error)
-	EditMessageMedia(req RequestEditMedia) (Message, error)
+	SendMessage(req RequestMessage) (Result, error)
+	SendPhoto(req RequestPhoto) (Result, error)
+	SendAnimation(req RequestAnimation) (Result, error)
+	EditMessageCaption(req RequestEditCaption) (Result, error)
+	EditMessageMedia(req RequestEditMedia) (Result, error)
 }
 
 type client struct {
@@ -41,14 +41,14 @@ func NewClient(httpClient *http.Client, token string) (Client, error) {
 
 }
 
-func (c *client) SendMessage(message RequestMessage) (Message, error) {
-	resp := new(Message)
+func (c *client) SendMessage(message RequestMessage) (Result, error) {
+	resp := new(Result)
 
 	u := c.baseURL.ResolveReference(&url.URL{Path: "sendMessage"})
 
 	b, err := json.Marshal(message)
 	if err != nil {
-		return *resp, err
+		return Result{}, err
 	}
 
 	httpReq, err := http.NewRequest(http.MethodPost, u.String(), bytes.NewBuffer(b))
@@ -82,8 +82,8 @@ func (c *client) SendMessage(message RequestMessage) (Message, error) {
 	return *resp, nil
 }
 
-func (c *client) SendPhoto(photo RequestPhoto) (Message, error) {
-	resp := new(Message)
+func (c *client) SendPhoto(photo RequestPhoto) (Result, error) {
+	resp := new(Result)
 
 	u := c.baseURL.ResolveReference(&url.URL{Path: "sendPhoto"})
 
@@ -123,8 +123,8 @@ func (c *client) SendPhoto(photo RequestPhoto) (Message, error) {
 	return *resp, nil
 }
 
-func (c *client) SendAnimation(animation RequestAnimation) (Message, error) {
-	resp := new(Message)
+func (c *client) SendAnimation(animation RequestAnimation) (Result, error) {
+	resp := new(Result)
 
 	u := c.baseURL.ResolveReference(&url.URL{Path: "sendAnimation"})
 
@@ -164,8 +164,8 @@ func (c *client) SendAnimation(animation RequestAnimation) (Message, error) {
 	return *resp, nil
 }
 
-func (c *client) EditMessageCaption(req RequestEditCaption) (Message, error) {
-	resp := new(Message)
+func (c *client) EditMessageCaption(req RequestEditCaption) (Result, error) {
+	resp := new(Result)
 
 	u := c.baseURL.ResolveReference(&url.URL{Path: "editMessageCaption"})
 
@@ -205,8 +205,8 @@ func (c *client) EditMessageCaption(req RequestEditCaption) (Message, error) {
 	return *resp, nil
 }
 
-func (c *client) EditMessageMedia(req RequestEditMedia) (Message, error) {
-	resp := new(Message)
+func (c *client) EditMessageMedia(req RequestEditMedia) (Result, error) {
+	resp := new(Result)
 
 	u := c.baseURL.ResolveReference(&url.URL{Path: "editMessageMedia"})
 
